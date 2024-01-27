@@ -1,0 +1,497 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "TASK MANAGER API",
+        "version": "1.0"
+    },
+    "paths": {
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "AppUser API"
+                ],
+                "summary": "Register",
+                "operationId": "2ea304aede5bdc0b87244dd8b3d4b693",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "998905711816"
+                                    },
+                                    "fullname": {
+                                        "type": "string",
+                                        "example": "Abdurahmon"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Check user **token** and added new task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "success",
+                                            "format": "boolean",
+                                            "default": "true"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "format": "object",
+                                            "example": null
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "format": "string",
+                                            "default": "Qo'shildi"
+                                        },
+                                        "error_code": {
+                                            "description": "error_code",
+                                            "format": "integer",
+                                            "default": "0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "AppUser API"
+                ],
+                "summary": "Login",
+                "operationId": "19a6e0a0a81a55a20deeb319128a167e",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "phone": {
+                                        "type": "string",
+                                        "example": "998905711816"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Check user **token** and added new task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "success",
+                                            "format": "boolean",
+                                            "default": "true"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "format": "object",
+                                            "example": {
+                                                "id": 17,
+                                                "phone": "998905711816",
+                                                "fullname": "Abdurahmon",
+                                                "token": "htg387htv73gw3yg8v9g8yrfg923f4",
+                                                "password": "$2y$12$lkQctPgpsD2bYXkgHPJLt.DLpAJwjS.uXlCpc8Bt39pGv4G8tcNTK",
+                                                "created_at": "2023-08-29T04:39:24.000000Z",
+                                                "updated_at": null
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "format": "string",
+                                            "default": "Xush Kelibsiz!"
+                                        },
+                                        "error_code": {
+                                            "description": "error_code",
+                                            "format": "integer",
+                                            "default": "0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/get": {
+            "get": {
+                "tags": [
+                    "AppUser API"
+                ],
+                "summary": "GetAppUser",
+                "operationId": "250b7b81de871c693081714c961f73fa",
+                "parameters": [
+                    {
+                        "name": "Token",
+                        "in": "header",
+                        "description": "User token",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Check user **token** and added new task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "success",
+                                            "format": "boolean",
+                                            "default": "true"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "format": "object",
+                                            "example": {
+                                                "id": 17,
+                                                "phone": "998905711816",
+                                                "fullname": "Abdurahmon",
+                                                "token": "htg387htv73gw3yg8v9g8yrfg923f4",
+                                                "password": "$2y$12$lkQctPgpsD2bYXkgHPJLt.DLpAJwjS.uXlCpc8Bt39pGv4G8tcNTK",
+                                                "created_at": "2023-08-29T04:39:24.000000Z",
+                                                "updated_at": null
+                                            }
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "format": "string",
+                                            "default": ""
+                                        },
+                                        "error_code": {
+                                            "description": "error_code",
+                                            "format": "integer",
+                                            "default": "0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/list": {
+            "get": {
+                "tags": [
+                    "AppUser API"
+                ],
+                "summary": "GetUserlist",
+                "operationId": "e0c55c7a26ba6bf0aec50033371ed3a9",
+                "parameters": [
+                    {
+                        "name": "Token",
+                        "in": "header",
+                        "description": "User token",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Check user **token** and added new task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "success",
+                                            "format": "boolean",
+                                            "default": "true"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "format": "object",
+                                            "example": [
+                                                {
+                                                    "id": 17,
+                                                    "phone": "998905711816",
+                                                    "fullname": "Abdurahmon",
+                                                    "token": "htg@htg387htv73gw3yg8v9g#%@8yr3f4",
+                                                    "password": "$2y$12$lkQctPgpsD2bYXkgHPJLt.DLpAJwjS.uXlCpc8Bt39pGv4G8tcNTK",
+                                                    "created_at": "2023-08-29T04:39:24.000000Z",
+                                                    "updated_at": null
+                                                },
+                                                {
+                                                    "id": 19,
+                                                    "phone": "998905711816",
+                                                    "fullname": "Abdurahmon",
+                                                    "token": "htg387htv73^%@gw3yg#$%^28v9g8yrfg9",
+                                                    "password": "$2y$12$lkQctPgpsD2bYXkgHPJLt.DLpAJwjS.uXlCpc8Bt39pGv4G8tcNTK",
+                                                    "created_at": "2023-08-29T04:39:24.000000Z",
+                                                    "updated_at": null
+                                                }
+                                            ]
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "format": "string",
+                                            "default": "Here is your list"
+                                        },
+                                        "error_code": {
+                                            "description": "error_code",
+                                            "format": "integer",
+                                            "default": "0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/create": {
+            "post": {
+                "tags": [
+                    "AppUser API"
+                ],
+                "summary": "Create",
+                "operationId": "7e7cc644e4b9f6a95971d1ad680acd80",
+                "parameters": [
+                    {
+                        "name": "Token",
+                        "in": "header",
+                        "description": "User token",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Title"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Content"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "image.jpg"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Check user **token** and added new task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "success",
+                                            "format": "boolean",
+                                            "default": "true"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "format": "object",
+                                            "example": null
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "format": "string",
+                                            "default": "Qo'shildi"
+                                        },
+                                        "error_code": {
+                                            "description": "error_code",
+                                            "format": "integer",
+                                            "default": "0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/update/{id}": {
+            "post": {
+                "tags": [
+                    "AppUser API"
+                ],
+                "summary": "Update Post",
+                "operationId": "37bb805b1a238fdb8791129b91b3e3c8",
+                "parameters": [
+                    {
+                        "name": "Token",
+                        "in": "header",
+                        "description": "User token",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Post id",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Title"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Content"
+                                    },
+                                    "image": {
+                                        "type": "string",
+                                        "example": "image.jpg"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Check user **token** and added new task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "success",
+                                            "format": "boolean",
+                                            "default": "true"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "format": "object",
+                                            "example": null
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "format": "string",
+                                            "default": "Yangilandi!"
+                                        },
+                                        "error_code": {
+                                            "description": "error_code",
+                                            "format": "integer",
+                                            "default": "0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/delete/{id}": {
+            "delete": {
+                "tags": [
+                    "AppUser API"
+                ],
+                "summary": "Delete post",
+                "operationId": "739705c3ce267316a49ee7b0d5391501",
+                "parameters": [
+                    {
+                        "name": "Token",
+                        "in": "header",
+                        "description": "User token",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Check user **token** and delete this task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "description": "success",
+                                            "format": "boolean",
+                                            "default": "true"
+                                        },
+                                        "data": {
+                                            "description": "data",
+                                            "format": "object",
+                                            "example": null
+                                        },
+                                        "message": {
+                                            "description": "message",
+                                            "format": "string",
+                                            "default": "O'chirildi"
+                                        },
+                                        "error_code": {
+                                            "description": "error_code",
+                                            "format": "integer",
+                                            "default": "0"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
