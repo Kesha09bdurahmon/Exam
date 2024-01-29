@@ -281,75 +281,81 @@ class AppUserController extends Controller
 
        
     }
-     //
-     /**
-     * @OA\Post(
-     *     path="/api/create",
-     *     tags={"AppUser API"},
-     *     summary="Create",
-     *   @OA\Parameter(
-     *           name="Token",
-     *           in="header",
-     *           description="User token",
-     *           @OA\Schema(
-     *               type="string"
-     *           )
-     *       ),
-     *     @OA\RequestBody(
-     *      @OA\MediaType(
-     *     mediaType="multipart/form-data",
-     *          @OA\Schema(
-        *         @OA\Property(
-        *           property="image",
-        *           type="file",
-        *           @OA\Items(
-        *             type="file", 
-                * format="binary"
-        *           )
-        *         )
-        *       )
-     *     ),
-     * ),
-     *     @OA\Response(
-     *     response="200",
-     *     description="Check user **token** and added new task",
-     *     @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  format="boolean",
-     *                  default="true",
-     *                  description="success",
-     *                  property="success"
-     *              ),
-     *              @OA\Property(
-     *                  format="object",
-     *                  description="data",
-     *                  property="data",
-     *                  example=null
-     *              ),
-     *              @OA\Property(
-     *                  format="string",
-     *                  default="Qo'shildi",
-     *                  description="message",
-     *                  property="message"
-     *              ),
-     *              @OA\Property(
-     *                  format="integer",
-     *                  default="0",
-     *                  description="error_code",
-     *                  property="error_code"
-     *              ),
-     *          ),
-     *     ),
-     * )
-     */
-    public function add(Request $request){
+    /**
+         * @OA\Post(
+         *     path="/api/create",
+         *     tags={"AppUser API"},
+         *     summary="Add AppUser",
+         *     @OA\Parameter(
+         *         name="Token",
+         *         in="header",
+         *         description="User token",
+         *         @OA\Schema(
+         *             type="string"
+         *         )
+         *     ),
+         *     @OA\RequestBody(
+         *              @OA\MediaType(
+         *                       mediaType="multipart/form-data",
+         *                       @OA\Schema(
+         *                           @OA\Property(
+         *                               property="image",
+         *                               type="file",
+         *                               format="file"
+         *                           ),
+         *              @OA\Property(property="content", type="string", example="Content"),
+         *              @OA\Property(property="title", type="string", example="Title"),
+         *                       )
+         *                  ),
+         *     ),
+         *     @OA\Response(
+         *     response="200",
+         *     description="Add AppUser.",
+         *     @OA\JsonContent(
+         *              type="object",
+         *              @OA\Property(
+         *                  format="boolean",
+         *                  default="true",
+         *                  description="success",
+         *                  property="success"
+         *              ),
+         *              @OA\Property(
+         *                  type="object",
+         *                  description="data",
+         *                  property="data",
+         *                  example="null",
+         *              ),
+         *              @OA\Property(
+         *                  format="string",
+         *                  default="Qo'shildi!",
+         *                  description="message",
+         *                  property="message"
+         *              ),
+         *              @OA\Property(
+         *                  format="integer",
+         *                  default="0",
+         *                  description="error_code",
+         *                  property="error_code"
+         *              ),
+         *          ),
+         *     ),
+         * )
+         */
+    public function add(Request $request){  
         $check_AppUser = AppUser::where("token",$this->getToken())->first();
         if($check_AppUser == null){
             return $this->sendResponse(null,false,"User topilmadi");
         }
+        $image = $request->file('image');
+
+        $image_name = Str::random(20);
+        $ext = strtolower($image->getClientOriginalExtension()); // You can use also getClientOriginalName()
+        $image_full_name = $image_name . '.' . $ext;
+        $upload_path = 'upload';    //Creating Sub directory in Public folder to put image
+        $save_url_image = $upload_path . $image_full_name;
+        $success = $image->move($upload_path, $image_full_name);
         Post::create([
-            "image" => $request->image,
+            "image" => $save_url_image,
             "title" => $request->title,
             "content" => $request->content,
             "user_id" => $check_AppUser->id,
@@ -357,77 +363,74 @@ class AppUserController extends Controller
         return $this->sendResponse(null,true,"Qo'shildi");
         
     }
-    //
      /**
-     * @OA\Post(
-     *     path="/api/update/{id}",
-     *     tags={"AppUser API"},
-     *     summary="Update Post",
-     *   @OA\Parameter(
-     *           name="Token",
-     *           in="header",
-     *           description="User token",
-     *           @OA\Schema(
-     *               type="string"
-     *           )
-     *       ),
-     *  @OA\Parameter(
-     *           name="id",
-     *           in="path",
-     *           description="Post id",
-     *           @OA\Schema(
-     *               type="string"
-     *           )
-     *       ),
-      *     @OA\RequestBody(
-     *      @OA\MediaType(
-     *     mediaType="multipart/form-data",
-     *          @OA\Schema(
- *         @OA\Property(
- *           property="products",
- *           type="array",
- *           @OA\Items(
- *             @OA\Property(property="title", type="string"),
- *             @OA\Property(property="content", type="string"),
- *             @OA\Property(property="image", type="string", format="binary"),
- *           )
- *         )
- *       )
-     *     ),
-     * ),
-     *     @OA\Response(
-     *     response="200",
-     *     description="Check user **token** and added new task",
-     *     @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(
-     *                  format="boolean",
-     *                  default="true",
-     *                  description="success",
-     *                  property="success"
-     *              ),
-     *              @OA\Property(
-     *                  format="object",
-     *                  description="data",
-     *                  property="data",
-     *                  example=null
-     *              ),
-     *              @OA\Property(
-     *                  format="string",
-     *                  default="Yangilandi!",
-     *                  description="message",
-     *                  property="message"
-     *              ),
-     *              @OA\Property(
-     *                  format="integer",
-     *                  default="0",
-     *                  description="error_code",
-     *                  property="error_code"
-     *              ),
-     *          ),
-     *     ),
-     * )
-     */
+         * @OA\Post(
+         *     path="/api/update/{id}",
+         *     tags={"AppUser API"},
+         *     summary="Update AppUser",
+         *     @OA\Parameter(
+         *         name="Token",
+         *         in="header",
+         *         description="User token",
+         *         @OA\Schema(
+         *             type="string"
+         *         )
+         *     ),
+         *     @OA\Parameter(
+         *         name="id",
+         *         in="path",
+         *         description="Post id",
+         *         @OA\Schema(
+         *             type="string"
+         *         )
+         *     ),
+         *     @OA\RequestBody(
+         *              @OA\MediaType(
+         *                       mediaType="multipart/form-data",
+         *                       @OA\Schema(
+         *                           @OA\Property(
+         *                               property="image",
+         *                               type="file",
+         *                               format="file"
+         *                           ),
+         *              @OA\Property(property="content", type="string", example="Content"),
+         *              @OA\Property(property="title", type="string", example="Title"),
+         *                       )
+         *                  ),
+         *     ),
+         *     @OA\Response(
+         *     response="200",
+         *     description="Add AppUser.",
+         *     @OA\JsonContent(
+         *              type="object",
+         *              @OA\Property(
+         *                  format="boolean",
+         *                  default="true",
+         *                  description="success",
+         *                  property="success"
+         *              ),
+         *              @OA\Property(
+         *                  type="object",
+         *                  description="data",
+         *                  property="data",
+         *                  example="null",
+         *              ),
+         *              @OA\Property(
+         *                  format="string",
+         *                  default="O'zgartirildi!",
+         *                  description="message",
+         *                  property="message"
+         *              ),
+         *              @OA\Property(
+         *                  format="integer",
+         *                  default="0",
+         *                  description="error_code",
+         *                  property="error_code"
+         *              ),
+         *          ),
+         *     ),
+         * )
+         */
     public function new(Request $request,$id){
         $check_AppUser = AppUser::where("token",$this->getToken())->first();
         if($check_AppUser == null){
@@ -440,8 +443,17 @@ class AppUserController extends Controller
             if($user->user_id !== $check_AppUser->id){
                 return $this->sendResponse(null,false,"Post sizga tegishlik emas");
             }else{
+                
+        $image = $request->file('image');
+
+        $image_name = Str::random(20);
+        $ext = strtolower($image->getClientOriginalExtension()); // You can use also getClientOriginalName()
+        $image_full_name = $image_name . '.' . $ext;
+        $upload_path = 'upload';    //Creating Sub directory in Public folder to put image
+        $save_url_image = $upload_path . $image_full_name;
+        $success = $image->move($upload_path, $image_full_name);
                  $user->update([
-            "image" => $request->image,
+            "image" => $save_url_image,
             "title" => $request->title,
             "content" => $request->content,
             "user_id" => $check_AppUser->id,
@@ -449,7 +461,7 @@ class AppUserController extends Controller
             }
             
         }
-        return $this->sendResponse(null,true,"Yangilandi!");
+        return $this->sendResponse(null,true,"O'zgartirildi!");
     }
         /**
      * @OA\Delete(

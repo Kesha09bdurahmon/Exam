@@ -211,7 +211,7 @@
                 "operationId": "e0c55c7a26ba6bf0aec50033371ed3a9",
                 "parameters": [
                     {
-                        "name": "token",
+                        "name": "Token",
                         "in": "header",
                         "description": "User token",
                         "schema": {
@@ -279,7 +279,7 @@
                 "tags": [
                     "AppUser API"
                 ],
-                "summary": "Create",
+                "summary": "Add AppUser",
                 "operationId": "7e7cc644e4b9f6a95971d1ad680acd80",
                 "parameters": [
                     {
@@ -296,23 +296,17 @@
                         "multipart/form-data": {
                             "schema": {
                                 "properties": {
-                                    "products": {
-                                        "type": "array",
-                                        "items": {
-                                            "properties": {
-                                                "title": {
-                                                    "type": "string"
-                                                },
-                                                "content": {
-                                                    "type": "string"
-                                                },
-                                                "image": {
-                                                    "type": "file",
-                                                    "format": "binary"
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
+                                    "image": {
+                                        "type": "file",
+                                        "format": "file"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Content"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Title"
                                     }
                                 },
                                 "type": "object"
@@ -322,7 +316,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Check user **token** and added new task",
+                        "description": "Add AppUser.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -334,13 +328,13 @@
                                         },
                                         "data": {
                                             "description": "data",
-                                            "format": "object",
-                                            "example": null
+                                            "type": "object",
+                                            "example": "null"
                                         },
                                         "message": {
                                             "description": "message",
                                             "format": "string",
-                                            "default": "Qo'shildi"
+                                            "default": "Qo'shildi!"
                                         },
                                         "error_code": {
                                             "description": "error_code",
@@ -361,7 +355,7 @@
                 "tags": [
                     "AppUser API"
                 ],
-                "summary": "Update Post",
+                "summary": "Update AppUser",
                 "operationId": "37bb805b1a238fdb8791129b91b3e3c8",
                 "parameters": [
                     {
@@ -386,23 +380,17 @@
                         "multipart/form-data": {
                             "schema": {
                                 "properties": {
-                                    "products": {
-                                        "type": "array",
-                                        "items": {
-                                            "properties": {
-                                                "title": {
-                                                    "type": "string"
-                                                },
-                                                "content": {
-                                                    "type": "string"
-                                                },
-                                                "image": {
-                                                    "type": "string",
-                                                    "format": "binary"
-                                                }
-                                            },
-                                            "type": "object"
-                                        }
+                                    "image": {
+                                        "type": "file",
+                                        "format": "file"
+                                    },
+                                    "content": {
+                                        "type": "string",
+                                        "example": "Content"
+                                    },
+                                    "title": {
+                                        "type": "string",
+                                        "example": "Title"
                                     }
                                 },
                                 "type": "object"
@@ -412,7 +400,7 @@
                 },
                 "responses": {
                     "200": {
-                        "description": "Check user **token** and added new task",
+                        "description": "Add AppUser.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -424,13 +412,13 @@
                                         },
                                         "data": {
                                             "description": "data",
-                                            "format": "object",
-                                            "example": null
+                                            "type": "object",
+                                            "example": "null"
                                         },
                                         "message": {
                                             "description": "message",
                                             "format": "string",
-                                            "default": "Yangilandi!"
+                                            "default": "O'zgartirildi!"
                                         },
                                         "error_code": {
                                             "description": "error_code",
