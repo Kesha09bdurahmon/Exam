@@ -211,7 +211,7 @@
                 "operationId": "e0c55c7a26ba6bf0aec50033371ed3a9",
                 "parameters": [
                     {
-                        "name": "Token",
+                        "name": "token",
                         "in": "header",
                         "description": "User token",
                         "schema": {
@@ -293,20 +293,26 @@
                 ],
                 "requestBody": {
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "properties": {
-                                    "title": {
-                                        "type": "string",
-                                        "example": "Title"
-                                    },
-                                    "content": {
-                                        "type": "string",
-                                        "example": "Content"
-                                    },
-                                    "image": {
-                                        "type": "string",
-                                        "example": "image.jpg"
+                                    "products": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "title": {
+                                                    "type": "string"
+                                                },
+                                                "content": {
+                                                    "type": "string"
+                                                },
+                                                "image": {
+                                                    "type": "file",
+                                                    "format": "binary"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
                                     }
                                 },
                                 "type": "object"
@@ -377,20 +383,26 @@
                 ],
                 "requestBody": {
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
                                 "properties": {
-                                    "title": {
-                                        "type": "string",
-                                        "example": "Title"
-                                    },
-                                    "content": {
-                                        "type": "string",
-                                        "example": "Content"
-                                    },
-                                    "image": {
-                                        "type": "string",
-                                        "example": "image.jpg"
+                                    "products": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "title": {
+                                                    "type": "string"
+                                                },
+                                                "content": {
+                                                    "type": "string"
+                                                },
+                                                "image": {
+                                                    "type": "string",
+                                                    "format": "binary"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
                                     }
                                 },
                                 "type": "object"

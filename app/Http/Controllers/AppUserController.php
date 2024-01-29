@@ -262,13 +262,23 @@ class AppUserController extends Controller
      * )
      */
     public function list(){
-        $check_AppUser = AppUser::where("token",$this->getToken())->first();
-        $post = Post::all();
+        
+       
+        $headers = getallheaders();
+        $token = isset($headers['Token']) ? $headers['Token'] : "";
+        $post_all = Post::all();
+        if(empty($token) ){
+            return $this->sendResponse($post_all,true,"");
+        }else{
+            $check_AppUser = AppUser::where("token",$this->getToken())->first();
+            $post = Post::where("user_id",$check_AppUser->id)->get();
         if($check_AppUser == null){
-            return $this->sendResponse($post,false,"User topilmadi");
+            return $this->sendResponse(null,false,"User topilmadi");
+        }else{
+            return $this->sendResponse($post,true,"");
         }
-        $post = Post::where("user_id",$check_AppUser->id)->get();
-        return $this->sendResponse($post,true,"Sizning postlaringiz");
+        }
+
        
     }
      //
@@ -286,13 +296,20 @@ class AppUserController extends Controller
      *           )
      *       ),
      *     @OA\RequestBody(
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(property="title", type="string", example="Title"),
-     *              @OA\Property(property="content", type="string", example="Content"),
-     *              @OA\Property(property="image", type="string", example="image.jpg"),
-     *          ),
+     *      @OA\MediaType(
+     *     mediaType="multipart/form-data",
+     *          @OA\Schema(
+        *         @OA\Property(
+        *           property="image",
+        *           type="file",
+        *           @OA\Items(
+        *             type="file", 
+                * format="binary"
+        *           )
+        *         )
+        *       )
      *     ),
+     * ),
      *     @OA\Response(
      *     response="200",
      *     description="Check user **token** and added new task",
@@ -362,14 +379,22 @@ class AppUserController extends Controller
      *               type="string"
      *           )
      *       ),
-     *     @OA\RequestBody(
-     *          @OA\JsonContent(
-     *              type="object",
-     *              @OA\Property(property="title", type="string", example="Title"),
-     *              @OA\Property(property="content", type="string", example="Content"),
-     *              @OA\Property(property="image", type="string", example="image.jpg"),
-     *          ),
+      *     @OA\RequestBody(
+     *      @OA\MediaType(
+     *     mediaType="multipart/form-data",
+     *          @OA\Schema(
+ *         @OA\Property(
+ *           property="products",
+ *           type="array",
+ *           @OA\Items(
+ *             @OA\Property(property="title", type="string"),
+ *             @OA\Property(property="content", type="string"),
+ *             @OA\Property(property="image", type="string", format="binary"),
+ *           )
+ *         )
+ *       )
      *     ),
+     * ),
      *     @OA\Response(
      *     response="200",
      *     description="Check user **token** and added new task",
